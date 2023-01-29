@@ -16,7 +16,7 @@ app.use(express.json());
 
 connectToMongo();
 // app.use("/api/auth", require("./routes/auth"));
-app.use("/api/auth", require("./routes/demo"));
+// app.use("/api/auth", require("./routes/demo"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/todo",require("./routes/todotask"));
 
