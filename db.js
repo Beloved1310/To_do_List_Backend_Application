@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const MONGODBURI =
-  "mongodb+srv://aydemo:aydemo@cluster0.szk1g.mongodb.net/TodoApp";
+
+const { MONGODBURI } = require('./config');
 
 
 const connectToMongo = async() => {
