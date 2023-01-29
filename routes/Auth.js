@@ -3,7 +3,7 @@ const { body ,validationResult} = require("express-validator");
 const User = require("../models/User");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const {JWT_SECRET } = require("../config")
+const { JWT_SECRET } = require("../config")
 var jwt = require('jsonwebtoken');
 const fetchuser = require("../middleware/Fetchuser");
 
@@ -52,7 +52,7 @@ async (req,res)=>{
           }
          let name=data.user.name;
         //  console.log(name);
-          const authToken=jwt.sign(data,JWT_SECRET)
+          const authToken=jwt.sign(data, JWT_SECRET)
           success=true;
         // res.send(req.body)
           res.json({authToken,success,name})

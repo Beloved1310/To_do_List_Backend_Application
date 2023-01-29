@@ -4,7 +4,7 @@ dotenv.config();
 const { env } = process;
 
 module.exports = {
-  JWT: env.JWT_KEY,
+  JWT_SECRET: env.JWT_SECRET,
   PORT: env.PORT || 9000,
   MONGODBURI: env.MONGODBURI,
   

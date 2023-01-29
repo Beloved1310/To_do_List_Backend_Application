@@ -1,4 +1,4 @@
-const JWT_SECRET = "iamanees$rehman$khan";
+const { JWT_SECRET } = require('../config');
 var jwt = require('jsonwebtoken');
 
 const fetchuser=(req,res,next)=>{
