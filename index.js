@@ -5,10 +5,10 @@ connectToMongo();
 //install the express and load the nodejs application
 const express = require("express");
 const app = express();
-const port = 9000;
+const port = 9000 || process.env.PORT ;
 var cors = require('cors')
 
-app.use(cors())
+app.use(cors({ origin: "*" }));
 app.use(express.json()); 
 //middle ware to use json
 //Available routes
