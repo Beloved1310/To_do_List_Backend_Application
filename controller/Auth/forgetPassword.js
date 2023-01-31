@@ -3,6 +3,7 @@ const User = require('../../models/User')
 const bcrypt = require('bcrypt')
 
 module.exports = async (req, res) => {
+  let success = false
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
@@ -10,6 +11,7 @@ module.exports = async (req, res) => {
 
   const { email, newPassword } = req.body
   let user = await User.findOne({ email })
+  try{
   if (!user)
     return res
       .status(400)
@@ -19,8 +21,13 @@ module.exports = async (req, res) => {
 
   const update = await User.updateOne({ password: hashPassword })
   if (!update) return res.status(400).send({ error: 'reset password error' })
-
-  return res.send({
+  success = true
+  return res.json({
     message: 'Password Updated, Proceed to Login',
+    success
   })
+}catch (error) {
+  console.log(error)
+  res.status(500).json({ message: error.message })
+}
 }
