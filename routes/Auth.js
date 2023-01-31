@@ -5,6 +5,7 @@ const authUser = require('../middleware/authUser')
 const createUser = require('../controller/Auth/createUser')
 const login = require('../controller/Auth/login')
 const getUser = require('../controller/Auth/getUser')
+const forgetPassword = require('../controller/Auth/forgetPassword')
 
 router.post(
   '/createUser/',
@@ -26,6 +27,15 @@ router.post(
     body('password', 'password cannot be blank').exists(),
   ],
   login,
+)
+
+router.post(
+  '/forgetPassword/',
+  [
+    body('email', 'Enter a Valid Email').isEmail(),
+    body('newPassword', 'password cannot be blank').exists(),
+  ],
+  forgetPassword,
 )
 
 //Get user details  using middleware as post method "/api/auth/getuser"
