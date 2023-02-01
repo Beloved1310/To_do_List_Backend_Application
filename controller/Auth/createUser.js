@@ -7,10 +7,11 @@ const jwt = require('jsonwebtoken')
 module.exports = async (req, res) => {
   let success = false
   const errors = validationResult(req)
+  const { name, email, password } = req.body
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
-  let user = await User.findOne({ email: req.body.email })
+  let user = await User.findOne({ email })
 
   try {
     if (user) {
@@ -21,26 +22,24 @@ module.exports = async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10)
-    hashPassword = await bcrypt.hash(req.body.password, salt)
+    let hashPassword = await bcrypt.hash(password, salt)
     user = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashPassword,
+      name,
+      email,
+      password : hashPassword,
     })
 
     const data = {
       user: {
         id: user.id,
-        name: user.name,
+        name : user.name,
       },
     }
-    let name = data.user.name
-    //  console.log(name);
+
     const authToken = jwt.sign(data, JWT_SECRET)
     success = true
-    // res.send(req.body)
+
     res.json({ authToken, success, name })
-    //   res.json({authToken,name})
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: error.message })
